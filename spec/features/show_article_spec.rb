@@ -36,7 +36,7 @@ RSpec.feature "Showing an Article" do
         expect(page).not_to have_link("Delete Article")
     end
     
-    scenario "A user who is not signed in shows article" do
+    scenario "A user who is not signed in shows article" do 
         visit "/"
         
         click_link @article1.title
