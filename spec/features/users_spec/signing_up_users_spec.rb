@@ -1,6 +1,7 @@
 require "rails_helper"
 
 RSpec.feature "Signup users" do
+        
     scenario "With valid credentials" do
         visit "/"
         
@@ -9,7 +10,6 @@ RSpec.feature "Signup users" do
         fill_in "Email", with: "geogeo@gmail.com" 
         fill_in "Password", with: "Geogeo12345"
         fill_in "Password confirmation", with: "Geogeo12345"
-        
         click_button "Sign up"
         
         expect(page).to have_content("You have signed up successfully")
