@@ -16,7 +16,7 @@ RSpec.feature "Creating Restaurants" do
         
         click_button "Create Restaurant"
         
-        #expect(Article.last.user).to eq(@john)
+        expect(Restaurant.last.user).to eq(@john)
         expect(page).to have_content("Restaurant has been created.")
         expect(page.current_path).to eq(restaurants_path)
         #expect(page).to have_content("Created by #{@john.email}")

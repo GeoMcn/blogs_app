@@ -22,7 +22,7 @@ RSpec.feature "Showing an Article" do
         expect(page).to have_link("Delete Article")
     end
     
-    scenario "A user shows another persons article" do
+    scenario "A signed in user shows another persons article" do
         login_as(@fred)
         visit "/"
         

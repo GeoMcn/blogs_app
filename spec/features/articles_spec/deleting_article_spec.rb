@@ -18,18 +18,5 @@ RSpec.feature "Deleting an Article" do
          expect(page.current_path).to eq(articles_path)
     end
     
-#    scenario "A user fails to update an article" do
-#         visit "/"
-#        
-#         click_link @article1.title
-#         click_link "Edit Article"
-#        
-#         fill_in "Title", with: "" 
-#         fill_in "Body", with: "Update Lorem Ipsum"
-#        
-#         click_button "Update Article"
-#        
-#         expect(page).to have_content("Article has not been updated")
-#         expect(page.current_path).to eq(article_path(@article1))
-#    end
+
 end
