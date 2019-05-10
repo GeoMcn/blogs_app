@@ -1,0 +1,17 @@
+<% if user_signed_in? %>
+     <%= link_to "New Restaurant", new_restaurant_path, class: "btn btn-default btn-lg", id: "new-article-btn" %> 
+<% end %>
+<% if @restaurants.empty? %>
+    <h1 id="no-articles">No restaurants created.</h1>
+<% else %>
+    <%= @restaurants.each do |restaurant| %>
+    <div class="well well-lg">
+        <div class="article-title">
+            <%= link_to restaurant.title, restaurant_path(restaurant) %>
+        </div>
+        <div class="article-body">
+            <%= truncate(restaurant.description, length: 500) %>
+        </div>
+    </div>
+    <% end %>
+<% end %>
