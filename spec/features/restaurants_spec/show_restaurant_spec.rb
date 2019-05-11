@@ -2,10 +2,11 @@ require "rails_helper"
 
 RSpec.feature "Showing a Restaurant" do
     before do
+        @region = Region.create!(name: "Dublin")
         @role = Role.create!(name: "restaurant owner")
         @john = User.create!(email: "john@gmail.com", password: "examplepassword", role: @role)
         @fred = User.create!(email: "fred@gmail.com", password: "fredspassword", role: @role)
-        @restaurant = Restaurant.create(title: "restaurant", description: "Lorem ipsum", user: @john)
+        @restaurant = Restaurant.create(title: "restaurant", description: "Lorem ipsum", user: @john, region: @region)
     end
     
     scenario "A signed in user shows their restaurant" do

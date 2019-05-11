@@ -3,11 +3,12 @@ require 'rails_helper'
 RSpec.describe "Restaurants", type: :request do
     
     before do
+        @region = Region.create!(name: "Dublin")
         @role = Role.create!(name: "restaurant owner")
         @role2 = Role.create!(name: "customer")
         @john = User.create!(email: "john@gmail.com", password: "examplepassword", role: @role)
         @fred = User.create!(email: "fred@gmail.com", password: "fredspassword", role: @role2)
-        @restaurant = Restaurant.create!(title: "The first restaurant", description: "Lorem ipsum", user: @john)
+        @restaurant = Restaurant.create!(title: "The first restaurant", description: "Lorem ipsum", user: @john, region: @region)
     end
     
     describe 'Get /restaurants/:id/edit' do
@@ -46,6 +47,7 @@ RSpec.describe "Restaurants", type: :request do
         end
    end
     
+#    Redirects if user isnt a restaurant owner
     
     describe 'Get /restaurants/new' do
         context 'with non restaurant owner' do
@@ -55,7 +57,7 @@ RSpec.describe "Restaurants", type: :request do
             before { get "/restaurants/new"}
             it "redirects to restaurants index page" do
                 expect(response.status).to eq 302
-                flash_message = "You can only create a restaurant if you are an owner"
+                flash_message = "You can only create a restaurant if you are a restaurant owner"
                 expect(flash[:alert]).to eq flash_message
             end
         end

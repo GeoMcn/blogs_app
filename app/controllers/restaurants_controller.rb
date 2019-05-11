@@ -1,14 +1,16 @@
 class RestaurantsController < ApplicationController
     before_action :authenticate_user!, except: [:index, :show]
     before_action :set_restaurant, only: [:show, :edit, :update, :destroy]
+    
   def index
       @restaurants = Restaurant.all
   end
+    
   def new
       if current_user.role.name == "restaurant owner"
         @restaurant = Restaurant.new
       else 
-          flash[:alert] = "You can only create a restaurant if you are an owner"
+          flash[:alert] = "You can only create a restaurant if you are a restaurant owner"
           redirect_to restaurants_path
       end
   end
@@ -78,7 +80,7 @@ class RestaurantsController < ApplicationController
     private 
     
     def restaurant_params
-        params.require(:restaurant).permit(:title, :description, :user)
+        params.require(:restaurant).permit(:title, :description, :user, :region_id)
     end
     def set_restaurant
         @restaurant = Restaurant.find(params[:id])
