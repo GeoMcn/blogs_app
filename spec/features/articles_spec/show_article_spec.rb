@@ -2,8 +2,9 @@ require "rails_helper"
 
 RSpec.feature "Showing an Article" do
     before do
-        @john = User.create!(email: "john@gmail.com", password: "examplepassword")
-        @fred = User.create!(email: "fred@gmail.com", password: "fredspassword")
+        @role = Role.create!(name: "restaurant owner")
+        @john = User.create!(email: "john@gmail.com", password: "examplepassword", role: @role)
+        @fred = User.create!(email: "fred@gmail.com", password: "fredspassword", role: @role)
         @article1 = Article.create(title: "The first article", body: "Lorem ipsum", user: @john)
     end
     

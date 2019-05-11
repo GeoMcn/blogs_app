@@ -2,7 +2,8 @@ require "rails_helper"
 
 RSpec.feature "Editing a Restaurant" do
     before do
-        @john = User.create!(email: "john@gmail.com", password: "examplepassword")
+        @role = Role.create!(name: "restaurant owner")
+        @john = User.create!(email: "john@gmail.com", password: "examplepassword", role: @role)
         login_as(@john)
         @restaurant1 = Restaurant.create(title: "Updated Restaurant", description: "Lorem ipsum", user: @john)
     end

@@ -1,4 +1,4 @@
-<% if user_signed_in? %>
+<% if user_signed_in? && current_user.role.name == "restaurant owner" %>
      <%= link_to "New Restaurant", new_restaurant_path, class: "btn btn-default btn-lg", id: "new-article-btn" %> 
 <% end %>
 <% if @restaurants.empty? %>

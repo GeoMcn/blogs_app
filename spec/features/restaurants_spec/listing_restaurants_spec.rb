@@ -2,7 +2,8 @@ require "rails_helper"
 
 RSpec.feature "Listing Restaurants" do
     before do
-        @john = User.create!(email: "john@gmail.com", password: "examplepassword")
+        @role = Role.create!(name: "restaurant owner")
+        @john = User.create!(email: "john@gmail.com", password: "examplepassword", role: @role)
         @restaurant1 = Restaurant.create(title: "The first article", description: "Lorem ipsum", user: @john)
         @restaurant2 = Restaurant.create(title: "The second article", description: "Lorem ipsum 2", user: @john)
     end

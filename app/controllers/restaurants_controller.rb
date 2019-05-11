@@ -5,19 +5,28 @@ class RestaurantsController < ApplicationController
       @restaurants = Restaurant.all
   end
   def new
-      @restaurant = Restaurant.new
+      if current_user.role.name == "restaurant owner"
+        @restaurant = Restaurant.new
+      else 
+          flash[:alert] = "You can only create a restaurant if you are an owner"
+          redirect_to restaurants_path
+      end
   end
     
   def create
-      @restaurant = Restaurant.new(restaurant_params)
-      @restaurant.user = current_user
-      if @restaurant.save
-          flash[:success] = "Restaurant has been created."
-          redirect_to restaurants_path
-      else
-          flash.now[:danger] = "Restaurant has not been created."
-          render :new
+      if current_user.role.name == "restaurant owner"
+          @restaurant = Restaurant.new(restaurant_params)
+          @restaurant.user = current_user
+          if @restaurant.save
+              flash[:success] = "Restaurant has been created."
+              redirect_to restaurants_path
+          else
+              flash.now[:danger] = "Restaurant has not been created."
+              render :new
+          end
       end
+      
+      
   end
     
   def show

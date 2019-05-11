@@ -3,8 +3,10 @@ require 'rails_helper'
 RSpec.describe "Restaurants", type: :request do
     
     before do
-        @john = User.create!(email: "john@gmail.com", password: "examplepassword")
-        @fred = User.create!(email: "fred@gmail.com", password: "fredspassword")
+        @role = Role.create!(name: "restaurant owner")
+        @role2 = Role.create!(name: "customer")
+        @john = User.create!(email: "john@gmail.com", password: "examplepassword", role: @role)
+        @fred = User.create!(email: "fred@gmail.com", password: "fredspassword", role: @role2)
         @restaurant = Restaurant.create!(title: "The first restaurant", description: "Lorem ipsum", user: @john)
     end
     
@@ -35,6 +37,35 @@ RSpec.describe "Restaurants", type: :request do
             before do
                 login_as(@john)
                 get "/restaurants/#{@restaurant.id}/edit"
+            end
+            
+            it "successfully edits restaurant" do
+                expect(response.status).to eq 200
+            end
+            
+        end
+   end
+    
+    
+    describe 'Get /restaurants/new' do
+        context 'with non restaurant owner' do
+            before do
+                login_as(@fred)
+            end
+            before { get "/restaurants/new"}
+            it "redirects to restaurants index page" do
+                expect(response.status).to eq 302
+                flash_message = "You can only create a restaurant if you are an owner"
+                expect(flash[:alert]).to eq flash_message
+            end
+        end
+        
+        
+        
+        context 'with signed in user who is owner' do
+            before do
+                login_as(@john)
+                get "/restaurants/new"
             end
             
             it "successfully edits restaurant" do

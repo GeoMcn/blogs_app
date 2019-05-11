@@ -2,7 +2,8 @@ require "rails_helper"
 
 RSpec.feature "Creating Articles" do
     before do
-        @john = User.create!(email: "john@gmail.com", password: "examplepassword")
+        @role = Role.create!(name: "restaurant owner")
+        @john = User.create!(email: "john@gmail.com", password: "examplepassword", role: @role)
         login_as(@john)
     end
     scenario "A user creates a new article" do
