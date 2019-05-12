@@ -40,11 +40,9 @@ class ReviewsController < ApplicationController
        else
             respond_to do |format|
               if @review.update(review_params)
-                format.html { redirect_to @review, notice: 'Review was successfully updated.' }
-                format.json { render :show, status: :ok, location: @review }
+                format.html { redirect_to @restaurant, notice: 'Review was successfully updated.' }
               else
-                format.html { render :edit }
-                format.json { render json: @review.errors, status: :unprocessable_entity }
+                format.html { redirect_to @restaurant, notice: 'Review has not been updated.' }
               end
             end
        end
@@ -53,10 +51,8 @@ class ReviewsController < ApplicationController
   def destroy
       @restaurant = Restaurant.find(params[:id] = @review.restaurant_id )
     @review.destroy
-    respond_to do |format|
-      format.html { redirect_to restaurant_path(@restaurant), notice: 'Review was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+      redirect_to @restaurant, notice: 'Review was successfully destroyed.'
+    
   end
 
   private
