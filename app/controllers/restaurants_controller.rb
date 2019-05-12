@@ -32,6 +32,7 @@ class RestaurantsController < ApplicationController
   end
     
   def show
+       @reviews = Review.where(restaurant_id: @restaurant.id).order("created_at DESC")
   end
     
   def edit

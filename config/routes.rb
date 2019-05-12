@@ -3,7 +3,9 @@ Rails.application.routes.draw do
     root to: "articles#index"
     
     resources :articles
-    resources :restaurants
+    resources :restaurants do
+      resources :reviews, except: [:show, :index]
+    end
     
     
 end

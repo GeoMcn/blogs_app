@@ -12,6 +12,7 @@
      <div class="article-body">
         <p>Region: <%= @restaurant.region.name %> </p>
         <p>Cuisine: <%= @restaurant.cuisine.name %> </p>
+        <p>Average Rating : <%= @reviews.average(:rating) %></p>
     </div>
     <% if user_signed_in? && current_user == @restaurant.user %>
         <div class="edit-delete">
@@ -19,6 +20,33 @@
             <%= link_to "Delete Restaurant", restaurant_path(@restaurant), method: :delete, data: {confirm: "Are you sure you want to delete restaurant?"}, class: "btn btn-primary btn-lg btn-space" %>
         </div>
     <% end %>
+    <div class="col-md-6 ">
+               <h1 class="review_title"><br />Reviews</h1>
+               <h3><%= @restaurant.title%></h3>
+               
+               <% if @reviews.blank? %>
+                   <h4>No reviews just yet, want to be the first to comment?</h4>
+                   <%= link_to 'write a review', new_restaurant_review_path(@restaurant), class: "btn btn-danger" %>
+               <% else %>
+                   <% @reviews.each do |review| %>
+                       <div class="reviews">
+                           <p><br />User : <%= review.user.email %></p>
+                           <p>rating : <%= review.rating %></p>
+                           <p>Comment : <%= review.comment %></p>
+                          
+                            <% if current_user.present? && current_user == review.user %>
+                           <p><%= link_to "Delete Comment", restaurant_review_path( review.restaurant.id, review ), data: { confirm: "Are you sure?" }, method: :delete %></p>
+                           <% end %>
+                       </div>
+                   <% end %>
+                   
+                   <% if current_user.present? %>
+                   <div class="reviewers" %>
+                   <%= link_to 'write a review', new_restaurant_review_path(@restaurant), class: "btn btn-secondary"%>
+                   </div>
+                   <% end %>
+                <% end %>
+           </div>
     
 </article>
        
