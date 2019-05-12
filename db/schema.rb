@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_11_222123) do
+ActiveRecord::Schema.define(version: 2019_05_12_011832) do
 
   create_table "articles", force: :cascade do |t|
     t.string "title"
@@ -19,6 +19,12 @@ ActiveRecord::Schema.define(version: 2019_05_11_222123) do
     t.datetime "updated_at", null: false
     t.integer "user_id"
     t.index ["user_id"], name: "index_articles_on_user_id"
+  end
+
+  create_table "cuisines", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "regions", force: :cascade do |t|
@@ -34,6 +40,8 @@ ActiveRecord::Schema.define(version: 2019_05_11_222123) do
     t.datetime "updated_at", null: false
     t.integer "user_id"
     t.integer "region_id"
+    t.integer "cuisine_id"
+    t.index ["cuisine_id"], name: "index_restaurants_on_cuisine_id"
     t.index ["region_id"], name: "index_restaurants_on_region_id"
     t.index ["user_id"], name: "index_restaurants_on_user_id"
   end

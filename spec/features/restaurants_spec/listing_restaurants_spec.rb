@@ -3,10 +3,11 @@ require "rails_helper"
 RSpec.feature "Listing Restaurants" do
     before do
         @region = Region.create!(name: "Dublin")
+        @cuisine = Cuisine.create!(name: "Thai")
         @role = Role.create!(name: "restaurant owner")
         @john = User.create!(email: "john@gmail.com", password: "examplepassword", role: @role)
-        @restaurant1 = Restaurant.create(title: "The first article", description: "Lorem ipsum", user: @john, region: @region)
-        @restaurant2 = Restaurant.create(title: "The second article", description: "Lorem ipsum 2", user: @john, region: @region)
+        @restaurant1 = Restaurant.create(title: "The first article", description: "Lorem ipsum", user: @john, region: @region, cuisine: @cuisine)
+        @restaurant2 = Restaurant.create(title: "The second article", description: "Lorem ipsum 2", user: @john, region: @region, cuisine: @cuisine)
     end
     
     scenario "With restaurants created and user not signed in" do
@@ -14,8 +15,10 @@ RSpec.feature "Listing Restaurants" do
         
         expect(page).to have_content(@restaurant1.title)
         expect(page).to have_content(@restaurant1.description)
+        expect(page).to have_content(@restaurant1.cuisine.name)
         expect(page).to have_content(@restaurant2.title)
         expect(page).to have_content(@restaurant2.description)
+        expect(page).to have_content(@restaurant2.cuisine.name)
         
         expect(page).to have_link(@restaurant1.title)
         expect(page).to have_link(@restaurant2.title)
@@ -29,8 +32,10 @@ RSpec.feature "Listing Restaurants" do
         
         expect(page).to have_content(@restaurant1.title)
         expect(page).to have_content(@restaurant1.description)
+        expect(page).to have_content(@restaurant1.cuisine.name)
         expect(page).to have_content(@restaurant2.title)
         expect(page).to have_content(@restaurant2.description)
+        expect(page).to have_content(@restaurant2.cuisine.name)
         
         expect(page).to have_link(@restaurant1.title)
         expect(page).to have_link(@restaurant2.title)
@@ -43,8 +48,10 @@ RSpec.feature "Listing Restaurants" do
         
         expect(page).not_to have_content(@restaurant1.title)
         expect(page).not_to have_content(@restaurant1.description)
+        expect(page).not_to have_content(@restaurant1.cuisine.name)
         expect(page).not_to have_content(@restaurant2.title)
         expect(page).not_to have_content(@restaurant2.description)
+        expect(page).not_to have_content(@restaurant2.cuisine.name)
         
         expect(page).not_to have_link(@restaurant1.title)
         expect(page).not_to have_link(@restaurant2.title)

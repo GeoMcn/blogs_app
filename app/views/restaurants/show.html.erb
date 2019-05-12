@@ -4,10 +4,14 @@
         <%= @restaurant.created_at.strftime("%b %d %Y") %>
     </div>
     <div class="article-body">
-        <%= @restaurant.description  %>
+        <p>Description:<%= @restaurant.description  %></p>
     </div>
     <div class="article-body">
         <p>Created by: <%= @restaurant.user.email  %></p>
+    </div>
+     <div class="article-body">
+        <p>Region: <%= @restaurant.region.name %> </p>
+        <p>Cuisine: <%= @restaurant.cuisine.name %> </p>
     </div>
     <% if user_signed_in? && current_user == @restaurant.user %>
         <div class="edit-delete">

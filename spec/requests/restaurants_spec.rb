@@ -4,11 +4,12 @@ RSpec.describe "Restaurants", type: :request do
     
     before do
         @region = Region.create!(name: "Dublin")
+        @cuisine = Cuisine.create!(name: "Thai")
         @role = Role.create!(name: "restaurant owner")
         @role2 = Role.create!(name: "customer")
         @john = User.create!(email: "john@gmail.com", password: "examplepassword", role: @role)
         @fred = User.create!(email: "fred@gmail.com", password: "fredspassword", role: @role2)
-        @restaurant = Restaurant.create!(title: "The first restaurant", description: "Lorem ipsum", user: @john, region: @region)
+        @restaurant = Restaurant.create!(title: "The first restaurant", description: "Lorem ipsum", user: @john, region: @region, cuisine: @cuisine)
     end
     
     describe 'Get /restaurants/:id/edit' do
