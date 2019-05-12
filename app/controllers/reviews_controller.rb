@@ -4,7 +4,12 @@ class ReviewsController < ApplicationController
 
   
   def new
-    @review = Review.new
+      if current_user.present?
+        @review = Review.new
+      else
+          flash[:alert] = "You can only write a review if you are a customer. Please sign up or sign in to continue"
+          redirect_to new_user_registration_path
+      end
   end
 
   
@@ -13,6 +18,7 @@ class ReviewsController < ApplicationController
 
 
   def create
+      if current_user.present?
         @review = Review.new(review_params)
         @review.user_id = current_user.id
         @review.restaurant_id = @restaurant.id
@@ -21,6 +27,10 @@ class ReviewsController < ApplicationController
         else 
             redirect_to @restaurant, notice: 'The review was not created! Rating is needed.'
         end 
+      else
+          flash[:alert] = "You can only write a review if you are a customer"
+          redirect_to restaurants_path
+      end
   end
 
   def update
