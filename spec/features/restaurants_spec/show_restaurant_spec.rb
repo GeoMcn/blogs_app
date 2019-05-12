@@ -63,6 +63,7 @@ RSpec.feature "Showing a Restaurant" do
         expect(page.current_path).to eq(restaurant_path(@restaurant))
         expect(page).not_to have_link("Edit Restaurant")
         expect(page).not_to have_link("Delete Restaurant")
+        expect(page).not_to have_link("Edit Review")
         expect(page).not_to have_link("write a review")
     end
     

@@ -35,6 +35,7 @@
                            <p>Comment : <%= review.comment %></p>
                           
                             <% if current_user.present? && current_user == review.user %>
+                            <p><%= link_to "Edit Comment", edit_restaurant_review_path( review.restaurant.id, review ) %></p>
                            <p><%= link_to "Delete Comment", restaurant_review_path( review.restaurant.id, review ), data: { confirm: "Are you sure?" }, method: :delete %></p>
                            <% end %>
                        </div>
