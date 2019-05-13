@@ -14,8 +14,8 @@ RSpec.feature "Creating Restaurants" do
         
         click_link "New Restaurant"
         
-         choose('Dublin', allow_label_click: true)
-         choose('Thai', allow_label_click: true)
+        choose('Dublin', allow_label_click: true)
+        choose('Thai', allow_label_click: true) 
         
         fill_in "Title", with: "Example" 
         fill_in "Description", with: "Lorem Ipsum"

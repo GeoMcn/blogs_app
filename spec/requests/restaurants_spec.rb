@@ -48,7 +48,7 @@ RSpec.describe "Restaurants", type: :request do
         end
    end
     
-#    Redirects if user isnt a restaurant owner
+#    Redirects if user isnt a restaurant owner and attempts to create a restaurant
     
     describe 'Get /restaurants/new' do
         context 'with non restaurant owner' do

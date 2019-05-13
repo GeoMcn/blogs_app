@@ -4,7 +4,7 @@
 <% if @restaurants.empty? %>
     <h1 id="no-articles">No restaurants created.</h1>
 <% else %>
-    <%= @restaurants.each do |restaurant| %>
+    <% @restaurants.each do |restaurant| %>
     <div class="well well-lg">
         <div class="article-title">
             <%= link_to restaurant.title, restaurant_path(restaurant) %>

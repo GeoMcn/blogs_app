@@ -18,7 +18,6 @@ RSpec.describe "Restaurants", type: :request do
     
     describe 'Get /restaurants/:restaurant_id/reviews/new' do 
         context 'with non signed in user' do  
-             
             before { get "/restaurants/:id/reviews/new"}
             it "redirects to restaurants index page" do
                 expect(response.status).to eq 302 
@@ -34,6 +33,7 @@ RSpec.describe "Restaurants", type: :request do
             end
             
             it "successfully edits restaurant" do
+#                expect(page.current_path).to eq(restaurant_path(@restaurant))
                 expect(response.status).to eq 200
             end
         end
