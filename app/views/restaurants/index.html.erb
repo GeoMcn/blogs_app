@@ -1,20 +1,42 @@
+<h1>Restaurants</h1>
 <% if user_signed_in? && current_user.role.name == "restaurant owner" %>
      <%= link_to "New Restaurant", new_restaurant_path, class: "btn btn-default btn-lg", id: "new-article-btn" %> 
 <% end %>
+
 <% if @restaurants.empty? %>
     <h1 id="no-articles">No restaurants created.</h1>
 <% else %>
     <% @restaurants.each do |restaurant| %>
-    <div class="well well-lg">
-        <div class="article-title">
-            <%= link_to restaurant.title, restaurant_path(restaurant) %>
+        <div class="well well-lg">
+            <div class="article-title">
+                <%= link_to restaurant.title, restaurant_path(restaurant) %>
+            </div>
+            <div class="article-body">
+                <p>Description: <%= truncate(restaurant.description, length: 500) %></p>
+            </div>
+            <div class="article-body">
+                <p>Cuisine: <%= restaurant.cuisine.name %> </p>
+            </div>
         </div>
-        <div class="article-body">
-            <p>Description: <%= truncate(restaurant.description, length: 500) %></p>
-        </div>
-        <div class="article-body">
-            <p>Cuisine: <%= restaurant.cuisine.name %> </p>
-        </div>
-    </div>
     <% end %>
+    
+        
+        <h2>Members</h2>
+        <% @users.each do |user| %>
+            <div class="well well-lg">
+                <div class="article-title">
+                   <h3>User: <%=  user.email %></h3> 
+                </div>
+                <% if user_signed_in? %>
+                    <div class="article-body">
+                           <%= link_to "Follow", friendships_path(friend_id: user.id, user_id: current_user.id), method: :post, class: "btn btn-success" unless current_user.follows_or_same?(user) %>
+                     </div>
+                     <div class="article-body">
+                           <%= link_to "Unfollow", friendships_path(current_user.current_friend(user)), data: { confirm: "Are you sure?" }, method: :delete, class: "btn btn-success link"  %>
+                     </div>
+                 <% end %>
+            </div>
+        <% end %>
+                
+            
 <% end %>

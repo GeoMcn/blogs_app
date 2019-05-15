@@ -10,3 +10,11 @@
   Role.find_or_create_by({name: role})
 end
 
+['dublin', 'cork', 'belfast', 'wexford'].each do |region|
+  Region.find_or_create_by({name: region})
+end
+
+['thai', 'italian', 'sushi'].each do |cuisine|
+  Cuisine.find_or_create_by({name: cuisine})
+end
+

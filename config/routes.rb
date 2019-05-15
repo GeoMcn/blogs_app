@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     resources :restaurants do
       resources :reviews, except: [:show, :index]
     end
-    
+#    resources :favourites, only: [:show, :create, :destroy]
+    resources :friendships, only: [:show, :index, :create, :destroy]
     
 end

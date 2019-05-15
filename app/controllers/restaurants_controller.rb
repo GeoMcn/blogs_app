@@ -4,6 +4,12 @@ class RestaurantsController < ApplicationController
     
   def index
       @restaurants = Restaurant.all
+#      @savedFavourites = current_user.savedFavourites
+      @users = User.all
+#      @savedFavourites1 = Favourite.all
+#      if current_user
+#        @favourites = Favourite.where(user_id: current_user.id)
+#      end
   end
     
   def new
