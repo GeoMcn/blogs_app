@@ -10,7 +10,7 @@
                       <p><%= friendship.friend.email %></p>
               </div>
               <div class="article-body">
-                       <%= link_to "Unfollow", friendships_path(friendship.friend), data: { confirm: "Are you sure?" }, method: :delete, class: "btn btn-success link"  %>
+                       <%= link_to "Unfollow", friendships_path(friendship.friend_id), data: { confirm: "Are you sure?" }, method: :delete, class: "btn btn-success link"  %>
                  </div>
         <% end %>
         

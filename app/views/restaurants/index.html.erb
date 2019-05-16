@@ -18,7 +18,8 @@
                 <p>Cuisine: <%= restaurant.cuisine.name %> </p>
             </div>
         </div>
-    <% end %>
+    <% end %>            
+<% end %>
     
         
         <h2>Members</h2>
@@ -29,7 +30,7 @@
                 </div>
                 <% if user_signed_in? %>
                     <div class="article-body">
-                           <%= link_to "Follow", friendships_path(friend_id: user.id, user_id: current_user.id), method: :post, class: "btn btn-success" unless current_user.follows_or_same?(user) %>
+                           <%= link_to "Follow", friendships_path(friend_id: user.id, user_id: current_user.id), method: :post, class: "btn btn-success", id: user.id unless current_user.follows_or_same?(user) %>
                      </div>
                      <div class="article-body">
                            <%= link_to "Unfollow", friendships_path(current_user.current_friend(user)), data: { confirm: "Are you sure?" }, method: :delete, class: "btn btn-success link"  %>
@@ -38,5 +39,3 @@
             </div>
         <% end %>
                 
-            
-<% end %>

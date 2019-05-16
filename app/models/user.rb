@@ -6,8 +6,6 @@ class User < ApplicationRecord
   has_many :articles, dependent: :destroy
   has_many :restaurants
   has_many :reviews, dependent: :destroy
-#  has_many :favourites
-#  has_many :savedFavourites, through: :favourites, class_name: "Restaurant"
   has_many :friendships
   has_many :friends, through: :friendships, class_name: "User"
   

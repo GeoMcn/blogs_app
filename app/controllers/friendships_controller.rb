@@ -13,14 +13,15 @@ class FriendshipsController < ApplicationController
     def create
      
           friend = User.find(params[:user_id])
+          params[:user_id] = current_user.id
           @friendship = Friendship.create(friendship_params)
-          @friendship.user_id = current_user.id
+#          @friendship.user_id = current_user.id
           if @friendship.save
               flash[:success] = "Friendship has been created."
-              redirect_to articles_path
+              redirect_to restaurants_path
           else
               flash.now[:danger] = "Friendship has not been created."
-              redirect_to articles_path
+              redirect_to restaurants_path
           end
       
     end
