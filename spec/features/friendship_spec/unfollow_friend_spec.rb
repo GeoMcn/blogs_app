@@ -13,30 +13,6 @@ RSpec.feature "Unfollowing Friend" do
         @restaurant1 = Restaurant.create(title: "The first article", description: "Lorem ipsum", user: @john, region: @region, cuisine: @cuisine)
         @restaurant2 = Restaurant.create(title: "The second article", description: "Lorem ipsum 2", user: @fred, region: @region, cuisine: @cuisine)
     end
-    
-    
-    
-#    scenario "Through restaurants" do
-#        login_as(@john)
-#        visit "/restaurants"
-#        
-#        expect(page).to have_content(@fred.email)
-#        expect(page).to have_link("Follow", id: @fred.id)
-#        expect(page).to have_content(@susie.email)
-#        expect(page).to have_link("Follow", id: @susie.id) 
-#        expect(page).to have_content(@rory.email)
-#        expect(page).not_to have_link("Follow", id: @rory.id)
-#        expect(page).to have_link("Unfollow", id: @rory.email) 
-#        expect(page).not_to have_link("Follow", id: @john.id)
-#      
-#        
-#        click_link("Unfollow", id: @rory.email)
-##        
-##        expect(page).to have_content("Friendship has been created.")
-#        expect(page.current_path).to eq("/restaurants")
-#        
-#        expect(page).to have_link(id: @rory.id)  
-#    end
 
     scenario "Through Friendships" do
         login_as(@john)
@@ -49,8 +25,11 @@ RSpec.feature "Unfollowing Friend" do
         expect(page).to have_content(@rory.email)
         expect(page).to have_link("Unfollow", id: @rory.email)
       
+#        Alternative way of unfollowing
+#       click_link("Unfollow", id: @rory.email)
         
-        click_link("Unfollow", id: @rory.email)
+        link = "a[href='/friendships/#{@friendship.id}'][data-method='delete']"
+        find(link).click
 
         expect(page.current_path).to eq("/friendships")
         expect(page).not_to have_content(@rory.email)

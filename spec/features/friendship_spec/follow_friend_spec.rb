@@ -27,9 +27,13 @@ RSpec.feature "Following Friend" do
         expect(page).to have_content(@rory.email)
         expect(page).not_to have_link("Follow", id: @rory.id) 
         expect(page).not_to have_link("Follow", id: @john.id)
-      
+       
+#        Button to follow @fred.
+        link = "a[href='/friendships?friend_id=#{@fred.id}&user_id=#{@john.id}']"
+        find(link).click
         
-        click_link("Follow", id: @fred.id)
+        #        Alternative way of unfollowing
+        #        click_link("Follow", id: @fred.id)
         
         expect(page).to have_content("Friendship has been created.")
         expect(page.current_path).to eq("/restaurants")
