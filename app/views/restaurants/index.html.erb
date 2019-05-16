@@ -29,13 +29,16 @@
                    <h3>User: <%=  user.email %></h3> 
                 </div>
                 <% if user_signed_in? %>
+                  <% if current_user.follows_or_same?(user)%>
+                   <div class="article-body">
+                           <p>Following</p>
+                     </div>
+                  <% else %>
                     <div class="article-body">
                            <%= link_to "Follow", friendships_path(friend_id: user.id, user_id: current_user.id), method: :post, class: "btn btn-success", id: user.id unless current_user.follows_or_same?(user) %>
                      </div>
-                     <div class="article-body">
-                           <%= link_to "Unfollow", friendships_path(current_user.current_friend(user)), data: { confirm: "Are you sure?" }, method: :delete, class: "btn btn-success link"  %>
-                     </div>
-                 <% end %>
+                  <% end %>
+                <% end %>
             </div>
         <% end %>
                 

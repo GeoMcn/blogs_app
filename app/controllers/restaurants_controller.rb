@@ -5,6 +5,7 @@ class RestaurantsController < ApplicationController
   def index
       @restaurants = Restaurant.all
       @users = User.all
+#      @users = User.where.not(email: current_user.email)
 
   end
     

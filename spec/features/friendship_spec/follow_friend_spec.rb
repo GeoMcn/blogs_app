@@ -21,20 +21,20 @@ RSpec.feature "Following Friend" do
         visit "/restaurants"
         
         expect(page).to have_content(@fred.email)
-        expect(page).to have_link(id: @fred.id)
+        expect(page).to have_link("Follow", id: @fred.id)
         expect(page).to have_content(@susie.email)
-        expect(page).to have_link(id: @susie.id) 
+        expect(page).to have_link("Follow", id: @susie.id) 
         expect(page).to have_content(@rory.email)
-        expect(page).not_to have_link(id: @rory.id) 
-        expect(page).not_to have_link(id: @john.id)
+        expect(page).not_to have_link("Follow", id: @rory.id) 
+        expect(page).not_to have_link("Follow", id: @john.id)
       
         
-        click_link(id: @fred.id)
+        click_link("Follow", id: @fred.id)
         
         expect(page).to have_content("Friendship has been created.")
         expect(page.current_path).to eq("/restaurants")
-        
-        expect(page).not_to have_link(id: @fred.id)  
+         
+        expect(page).not_to have_link("Follow", id: @fred.id)    
     end
     
     scenario "If not signed in" do

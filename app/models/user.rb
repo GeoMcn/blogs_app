@@ -11,23 +11,13 @@ class User < ApplicationRecord
   
     
   belongs_to :role
-    
-#    def follows_or_same?(new_favourite)
-#        favourites.map(&:restaurant).include?(new_favourite)
-#    end
-#    def current_savedFavourite(savedFavourite)
-#        favourites.where(restaurant: savedFavourite).first
-#    end
-    
+ 
     def follows_or_same?(new_friend)
         friendships.map(&:friend).include?(new_friend) || self == new_friend
     end
      
-    def current_friend(friend)
+    def current_friendship(friend)
         friendships.where(friend: friend).first
     end
     
-    def any_friend(current_user)
-        friendships.where(user_id: current_user).first
-    end
 end

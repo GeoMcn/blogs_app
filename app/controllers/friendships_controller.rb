@@ -11,7 +11,6 @@ class FriendshipsController < ApplicationController
     end
     
     def create
-     
           friend = User.find(params[:user_id])
           params[:user_id] = current_user.id
           @friendship = Friendship.create(friendship_params)
@@ -23,11 +22,15 @@ class FriendshipsController < ApplicationController
               flash.now[:danger] = "Friendship has not been created."
               redirect_to restaurants_path
           end
-      
     end
     
     def destroy
+        @friend = Friendship.find(params[:id])
+        if @friend.destroy
+             redirect_to friendships_path
+        end
     end
+        
     
    
     private
@@ -35,6 +38,10 @@ class FriendshipsController < ApplicationController
     def friendship_params
         params.permit( :user_id, :friend_id)
     end
+    def set_friendship
+        @friend = Frienship.find(params[:id])
+    end
+   
 
 
     
